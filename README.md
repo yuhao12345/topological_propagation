@@ -1,4 +1,6 @@
-Speckle pattern: interaction among edge mode and bulk modes.
+# Dynamics of transmission in disordered topological insulators
+
+## Speckle pattern: interaction among edge mode and bulk modes.
 
 ![Picture1](https://user-images.githubusercontent.com/31739574/97135020-1b090b00-171d-11eb-8e82-9c9cc4f33ae3.png)
 
@@ -14,4 +16,22 @@ transmission is dominated by robust transmission in the edge state. When the upp
 lower edge mode via disorder, the eigenchannel time delay is then equivalent to the integral of intensity inside the
 sample, whose spectrum can be decomposed into a superposition of Lorentzian lines.
 
-Citation: 	Kang, Y., Huang, Y. & Genack, A. Z. Dynamics of transmission in disordered topological insulators. Physical Review A 103, 033507 (2021)
+## Phase variation
+
+<img width="500" src="./results/phase_variation.PNG" />
+
+The increase of phase
+by 2π when tuning through a resonance in a disordered TI, 
+contrasts with the increase of π
+in a trivial random medium. The phase change of 2π can
+be understood from the complex representation of the field
+in which the curve of the complex field
+encircles the original point in the presence of the continuum.
+
+## Cite this Work:
+If you find this  work useful, you may cite this work:
+```
+Kang, Y., Huang, Y. & Genack, A. Z. Dynamics of transmission in disordered topological insulators. Physical Review A 103, 033507 (2021)
+
+```
+
