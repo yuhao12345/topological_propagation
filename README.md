@@ -14,4 +14,4 @@ transmission is dominated by robust transmission in the edge state. When the upp
 lower edge mode via disorder, the eigenchannel time delay is then equivalent to the integral of intensity inside the
 sample, whose spectrum can be decomposed into a superposition of Lorentzian lines.
 
-Ref: 	arXiv:1912.05151
+Citation: 	Kang, Y., Huang, Y. & Genack, A. Z. Dynamics of transmission in disordered topological insulators. Physical Review A 103, 033507 (2021)
