@@ -1,0 +1,78 @@
+"""
+Created on Thu Sep 19 00:46:57 2024
+
+@author: Yuhao Kang
+"""
+
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy.io as sio
+import os.path
+import random
+import kwant
+from kwant.digest import uniform
+from random import choices
+from time import time
+
+
+#%%
+
+length=100 
+width=30
+
+dis=0.0 # disorder strength
+
+lat = kwant.lattice.square()
+
+def make_system(length,width,salt):
+    def cuboid_shape(pos):
+        x, y= pos
+        return 0<=x<length and 0<=y<width
+    def lead_shape(pos):
+        x, y= pos
+        return 0<=y<width
+    def onsite(site):
+        x,y=site.pos
+        return dis*(uniform(repr(site),salt)-.5)+4
+
+    
+    sys = kwant.Builder()
+    sys[lat.shape(cuboid_shape, (0, 0))] = onsite
+    sys[lat.neighbors()] = -1
+    
+    sym_lead = kwant.TranslationalSymmetry((-1, 0))
+    lead = kwant.Builder(sym_lead)
+
+    lead[lat.shape(lead_shape, (0, 0))] = 4
+    lead[lat.neighbors()] = -1
+
+    sys.attach_lead(lead)
+    sys.attach_lead(lead.reversed())
+
+    return sys.finalized()
+
+sys=make_system(length,width, '05')
+
+#%%
+energies = np.linspace(0.9, 1.3, 250)
+
+#%%  Energy integral
+DOS_list = [np.sum(kwant.ldos(sys, en)) for en in energies]
+
+
+#%% transmission phase derivative
+df=1e-6
+phasederivative = [((np.angle(np.linalg.det(kwant.smatrix(sys,en+df).submatrix(1,0)))%np.pi)
+                   -(np.angle(np.linalg.det(kwant.smatrix(sys,en).submatrix(1,0)))%np.pi))/df for en in energies]
+
+
+#%%
+
+fig, ax = plt.subplots()
+ax2 = ax.twinx()
+ax.plot(DOS_list, 'bo')
+ax2.plot(phasederivative, 'r-')
+ax.set_xlabel('E')
+ax.set_ylabel('Energy Integral', color = 'b')
+ax2.set_ylabel('Transmission time', color = 'r')
+
